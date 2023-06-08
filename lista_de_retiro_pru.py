@@ -13,7 +13,7 @@ class Usuario:
             self.balance_cuenta -= amount
             print(f"'{self.name}' retira ${amount} de su cuenta. Saldo actual: {self.balance_cuenta}")
             return self
-        else: 
+        else:
             print("Saldo isuficiente para realizar este retiro")
             return self
     def mostrar_balance_usuario(self):
@@ -70,7 +70,7 @@ class CuentaBancaria:
             self.balance = self.balance * (1 + self.tasa_interes)
             print (f"Interes generado del 1%. Balance actual: ${self.balance}")
             return self
-        else: 
+        else:
             print("Saldo insuficiente para generar interes positivo para su cuenta")
             return self
 Cuenta1 = CuentaBancaria()

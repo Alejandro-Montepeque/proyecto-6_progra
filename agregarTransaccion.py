@@ -3,10 +3,10 @@ opcion = 0
 
 while opcion != 3:
     print("¡¡Bienvenido a Banco Del Caribe!!\n"
-          "¿Qué deseas hacer?\n"
-          "1. Depositar dinero.\n"
-          "2. Retirar dinero.\n"
-          "3. Salir.\n")
+        "¿Qué deseas hacer?\n"
+        "1. Depositar dinero.\n"
+        "2. Retirar dinero.\n"
+        "3. Salir.\n")
     opcion = int(input())
 
     if opcion == 1:
@@ -25,6 +25,7 @@ while opcion != 3:
             print(f"Tu saldo total es de {total:.2f}")
     elif opcion == 3:
         print("Gracias por utilizar Banco Del Caribe")
-        break 
+        break
     else:
         print("Por favor, selecciona una opción válida.\n")
+
