@@ -1,19 +1,13 @@
 opcion=0
 import random
-listaGlobal={
-        "CodigoCliente": '',
-        "NombreCliente": '',
-        "saldoCliente": '',
-        "numCuenta":'',
-    }
-
+listaGlobal={}
 while opcion !=5:
     print(":::::Bienvenido al Banco del caribe::::::")
     print("\n")
     print("Seleccione Una opción a realizar:")
-    print("1)Modificación de Clientes")
-    print("2)Agregar Transacción")
-    print("3)Lista Movimientos")
+    print("1) Modificación de Clientes")
+    print("2) Agregar Transacción")
+    print("3) Lista Movimientos")
     print("4) Lista de Clientes")
     print("5) Salir")
     opcion= int(input("Opcion: "))
@@ -23,12 +17,10 @@ while opcion !=5:
                 self.codigo = codigo
                 self.nombre = nombre
                 self.saldo = saldo
-                self.cuenta= cuenta
+                self.cuenta = cuenta
 
             def __str__(self):
-                return f"Código: {self.codigo}\nNombre: {self.nombre}\nSaldo: {self.saldo}\nNumero de Cuenta:{self.cuenta}\n-------------------"
-
-        clientes = []
+                return f"Código: {self.codigo}\nNombre: {self.nombre}\nSaldo: {self.saldo}\nNumero de Cuenta: {self.cuenta}\n-------------------"
 
         def agregar_cliente():
             codigo = str(random.randint(1000, 9999))
@@ -36,32 +28,26 @@ while opcion !=5:
             saldo = float(input("Ingrese el saldo del cliente: "))
             cuenta = int(input("Ingrese su número de cuenta: "))
             cliente = Cliente(codigo, nombre, saldo, cuenta)
-            clientes.append(cliente)
+            listaGlobal[cuenta] = cliente
             print("Cliente agregado exitosamente.")
         def modificar_cliente():
-            num_cuenta = input("Ingrese el número de cuenta del cliente a modificar: ")
-            encontrado = False
-            for cliente in clientes:
-                if cliente.cuenta == int(num_cuenta):
-                    nuevo_name= input("Ingrese el nuevo nombre: ")
-                    nuevo_cuenta=int(input("Ingrese el nuevo numero de cuenta: "))
-                    cliente.nombre=nuevo_name
-                    cliente.cuenta=nuevo_cuenta
-                    encontrado = True
-                    print("Cliente modificado exitosamente.")
-                    break
-            if not encontrado:
+            num_cuenta = int(input("Ingrese el número de cuenta del cliente a modificar: "))
+            if num_cuenta in listaGlobal:
+                cliente = listaGlobal[num_cuenta]
+                nuevo_nombre = input("Ingrese el nuevo nombre: ")
+                nuevo_cuenta = int(input("Ingrese el nuevo número de cuenta: "))
+                cliente.nombre = nuevo_nombre
+                cliente.cuenta = nuevo_cuenta
+                print("Cliente modificado exitosamente.")
+            else:
                 print("Cliente no encontrado.")
+
         def eliminar_cliente():
-            num_cuenta = input("Ingrese el código del cliente a eliminar: ")
-            encontrado = False
-            for cliente in clientes:
-                if cliente.cuenta == int(num_cuenta):
-                    clientes.remove(cliente)
-                    encontrado = True
-                    print("Cliente eliminado exitosamente.")
-                    break
-            if not encontrado:
+            num_cuenta = int(input("Ingrese el número de cuenta del cliente a eliminar: "))
+            if num_cuenta in listaGlobal:
+                del listaGlobal[num_cuenta]
+                print("Cliente eliminado exitosamente.")
+            else:
                 print("Cliente no encontrado.")
 
         while True:
@@ -85,43 +71,44 @@ while opcion !=5:
         total = 0.0
         opcionExt = 0
         while opcionExt != 3:
-            print("¡¡Bienvenido a Banco Del Caribe!!\n")
-            print("¿Qué deseas hacer?")
+            print("¿Qué tipo de transacción desea hacer?")
             print("1. Depositar dinero.")
             print("2. Retirar dinero.")
             print("3. Salir.")
-            opcionExt = int(input())
+            opcionExt = int(input("Ingrese la acción que desea tomar: "))
             if opcionExt == 1:
-                ingreso = float(input("¿Cuánto dinero deseas depositar?: "))
-                if ingreso >= 0:
-                    total += ingreso
-                    print(f"Tu saldo total es de {total:.2f}")
+                num_cuenta = input("Ingrese el número de cuenta al que desea depositar: ")
+                if int(num_cuenta) in listaGlobal:
+                    cliente = listaGlobal[int(num_cuenta)]
+                    ingreso = float(input("¿Cuánto dinero deseas depositar?: "))
+                    if ingreso >= 0:
+                        cliente.saldo += ingreso
+                        print(f"Tu saldo total es de {cliente.saldo:.2f}")
+                    else:
+                        print("La cantidad debe ser mayor a 0")
                 else:
-                    print("La cantidad debe ser mayor a 0")
+                    print("Cliente no encontrado.")
             elif opcionExt == 2:
-                egreso = float(input("¿Cuánto dinero deseas retirar?: "))
-                if total - egreso < 0:
-                    print(f"No tienes saldo suficiente en tu cuenta. Tu saldo total es de {total:.2f}")
+                num_cuenta = input("Ingrese el número de cuenta para retirar dinero: ")
+                if int(num_cuenta) in listaGlobal:
+                    cliente = listaGlobal[int(num_cuenta)]
+                    egreso = float(input("¿Cuánto dinero deseas retirar?: "))
+                    if cliente.saldo - egreso < 0:
+                        print(f"No tienes saldo suficiente en tu cuenta. Tu saldo total es de {cliente.saldo:.2f}")
+                    else:
+                        cliente.saldo -= egreso
+                        print(f"Tu saldo total es de {cliente.saldo:.2f}")
                 else:
-                    total -= egreso
-                    print(f"Tu saldo total es de {total:.2f}")
-            elif opcionExt == 3:
-                print("Gracias por utilizar Banco Del Caribe")
-                break
-            else:
-                print("Por favor, selecciona una opción válida.\n")
+                    print("Cliente no encontrado.")
     elif opcion==3:
         print("3")
     elif opcion==4:
-        def mostrar_clientes():
-            if clientes:
-                print("Lista de clientes:")
-                for cliente in clientes:
-                    print(cliente)
-            else:
-                print("No hay clientes registrados.")
-        mostrar_clientes()
+        print("Clientes registrados:")
+        for cliente in listaGlobal.values():
+            print(cliente)
     elif opcion==5:
-        print("5")
+        print("Gracias por utilizar EL BANCO DEL CARIBE")
+        break
     else:
         print("Opcion no valida")
+ñ
