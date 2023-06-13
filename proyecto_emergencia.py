@@ -1,4 +1,12 @@
 opcion=0
+import random
+listaGlobal={
+        "CodigoCliente": '',
+        "NombreCliente": '',
+        "saldoCliente": '',
+        "numCuenta":'',
+    }
+
 while opcion !=5:
     print(":::::Bienvenido al Banco del caribe::::::")
     print("\n")
@@ -11,71 +19,68 @@ while opcion !=5:
     opcion= int(input("Opcion: "))
     if opcion == 1:
         class Cliente:
-            def __init__(self, nombre, saldo):
+            def __init__(self, codigo, nombre, saldo, cuenta):
+                self.codigo = codigo
                 self.nombre = nombre
                 self.saldo = saldo
+                self.cuenta= cuenta
+
             def __str__(self):
-                return f"Nombre: {self.nombre}\nSaldo: {self.saldo}\n-------------------"
+                return f"Código: {self.codigo}\nNombre: {self.nombre}\nSaldo: {self.saldo}\nNumero de Cuenta:{self.cuenta}\n-------------------"
+
         clientes = []
-        def agregar_cliente(nombre, saldo):
-            cliente = Cliente(nombre, saldo)
+
+        def agregar_cliente():
+            codigo = str(random.randint(1000, 9999))
+            nombre = input("Ingrese el nombre del cliente: ")
+            saldo = float(input("Ingrese el saldo del cliente: "))
+            cuenta = int(input("Ingrese su número de cuenta: "))
+            cliente = Cliente(codigo, nombre, saldo, cuenta)
             clientes.append(cliente)
             print("Cliente agregado exitosamente.")
-        def modificar_cliente(nombre, nuevo_saldo):
-            cliente_encontrado = False
+        def modificar_cliente():
+            num_cuenta = input("Ingrese el número de cuenta del cliente a modificar: ")
+            encontrado = False
             for cliente in clientes:
-                if cliente.nombre == nombre:
-                    cliente.saldo = nuevo_saldo
-                    cliente_encontrado = True
+                if cliente.cuenta == int(num_cuenta):
+                    nuevo_name= input("Ingrese el nuevo nombre: ")
+                    nuevo_cuenta=int(input("Ingrese el nuevo numero de cuenta: "))
+                    cliente.nombre=nuevo_name
+                    cliente.cuenta=nuevo_cuenta
+                    encontrado = True
                     print("Cliente modificado exitosamente.")
-            if not cliente_encontrado:
+                    break
+            if not encontrado:
                 print("Cliente no encontrado.")
-        def eliminar_cliente(nombre):
-            clientes_aux = []
-            cliente_encontrado = False
+        def eliminar_cliente():
+            num_cuenta = input("Ingrese el código del cliente a eliminar: ")
+            encontrado = False
             for cliente in clientes:
-                if cliente.nombre == nombre:
-                    cliente_encontrado = True
+                if cliente.cuenta == int(num_cuenta):
+                    clientes.remove(cliente)
+                    encontrado = True
                     print("Cliente eliminado exitosamente.")
-                else:
-                    clientes_aux.append(cliente)
-            if not cliente_encontrado:
+                    break
+            if not encontrado:
                 print("Cliente no encontrado.")
-            clientes.clear()
-            clientes.extend(clientes_aux)
-        def mostrar_clientes():
-            if clientes:
-                print("Lista de clientes:")
-                for cliente in clientes:
-                    print(cliente)
-            else:
-                print("No hay clientes registrados.")
-        # Ejecución del programa
+
         while True:
             print("\n")
             print("1. Agregar cliente")
             print("2. Modificar cliente")
             print("3. Eliminar cliente")
-            print("4. Mostrar clientes")
-            print("5. Salir")
+            print("4. Salir")
             opcionInter = input("Ingrese el número de la opción que desea realizar: ")
             if opcionInter == "1":
-                nombre = input("Ingrese el nombre del cliente: ")
-                saldo = float(input("Ingrese el saldo del cliente: "))
-                agregar_cliente(nombre, saldo)
+                agregar_cliente()
             elif opcionInter == "2":
-                nombre = input("Ingrese el nombre del cliente a modificar: ")
-                nuevo_saldo = float(input("Ingrese el nuevo saldo: "))
-                modificar_cliente(nombre, nuevo_saldo)
+                modificar_cliente()
             elif opcionInter == "3":
-                nombre = input("Ingrese el nombre del cliente a eliminar: ")
-                eliminar_cliente(nombre)
+                eliminar_cliente()
             elif opcionInter == "4":
-                mostrar_clientes()
-            elif opcionInter == "5":
                 break
             else:
-                print("Opción inválida. Por favor, ingrese un número válido.")            
+                print("Opción inválida. Por favor, ingrese un número válido.")
     elif opcion==2:
         total = 0.0
         opcionExt = 0
@@ -108,7 +113,14 @@ while opcion !=5:
     elif opcion==3:
         print("3")
     elif opcion==4:
-        print("4")
+        def mostrar_clientes():
+            if clientes:
+                print("Lista de clientes:")
+                for cliente in clientes:
+                    print(cliente)
+            else:
+                print("No hay clientes registrados.")
+        mostrar_clientes()
     elif opcion==5:
         print("5")
     else:
