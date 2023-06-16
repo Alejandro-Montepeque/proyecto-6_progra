@@ -1,0 +1,19 @@
+1. Inicie el programa y visualice el menú principal del sistema bancario.
+2. Pida al usuario que elija una opción del menú.
+3. Si el usuario selecciona la opción 1, solicite el nombre del cliente, el saldo y el número de cuenta.
+   - Generar un código único de cliente.
+   - Crear un nuevo objeto de cliente con la información proporcionada.
+   - Agregar el cliente al sistema.
+   - Mostrar un mensaje de éxito.
+4. Si el usuario selecciona la opción 2, solicite el número de cuenta y el tipo de transacción (depósito o retiro).
+   - Si el número de cuenta es válido:
+     - Preguntar la cantidad de dinero a depositar o retirar.
+     - Si es un depósito, suma el importe al saldo del cliente.
+     - Si se trata de un retiro, verifique si el cliente tiene fondos suficientes y reste el monto del saldo si es posible.
+     - Mostrar el saldo actualizado o un mensaje de error si no hay fondos suficientes.
+   - Si el número de cuenta no es válido, muestra un mensaje de error.
+5. Si el usuario selecciona la opción 3, mostrar una lista de transacciones (declaración de marcador de posición).
+6. Si el usuario selecciona la opción 4, mostrar una lista de clientes registrados con sus detalles.
+7. Si el usuario selecciona la opción 5, mostrar un mensaje de cierre y finalizar el programa.
+8. Si el usuario ingresa una opción no válida, muestra un mensaje de error.
+9. Repita los pasos 2 a 8 hasta que el usuario decida salir del programa (opción 5).
