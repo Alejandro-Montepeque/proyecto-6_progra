@@ -97,16 +97,15 @@ while opcion !=5:
                     cliente = listaGlobal[int(num_cuenta)]
                     egreso = float(input("¿Cuánto dinero deseas retirar?: "))
                     if cliente.saldo - egreso < 0:
-                        cliente.retiro_count += 1
                         print(f"No tienes saldo suficiente en tu cuenta. Tu saldo total es de {cliente.saldo:.2f}")
                     else:
-                        cliente.saldo -= egreso
+                        cliente.retiro_count += 1
                         cliente.saldo -= egreso
                         print(f"Tu saldo total es de {cliente.saldo:.2f}")
                 else:
                     print("Cliente no encontrado.")
-    elif opcion==3:
         print("Contadores de retiros y depósitos:")
+    elif opcion==3:
         for cliente in listaGlobal.values():
             print(f"Número de cuenta: {cliente.cuenta}")
             print(f"Contador de retiros: {cliente.retiro_count}")
