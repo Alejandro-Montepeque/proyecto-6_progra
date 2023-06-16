@@ -111,3 +111,21 @@ while opcion !=5:
         break
     else:
         print("Opcion no valida")
+        transacciones = [
+    {"tipo": "Retiro", "monto": 100},
+    {"tipo": "Depósito", "monto": 200},
+    {"tipo": "Retiro", "monto": 50},
+    {"tipo": "Depósito", "monto": 300}
+]
+
+# Mostrar lista de retiros
+print("Retiros:")
+for transaccion in transacciones:
+    if transaccion["tipo"] == "Retiro":
+        print(f"Monto: {transaccion['monto']}")
+
+# Mostrar lista de depósitos
+print("\nDepósitos:")
+for transaccion in transacciones:
+    if transaccion["tipo"] == "Depósito":
+        print(f"Monto: {transaccion['monto']}")
